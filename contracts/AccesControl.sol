@@ -21,7 +21,7 @@ contract AccessByRol is AccessControl {
     require(hasRole(USER, msg.sender), 'This function onlu can call the USER rol');
   }
 
-  // Only the ADMIN can a new rol
+  // Only the ADMIN can add a new rol
   function addRol( bytes32 role, address account ) public {
     require(hasRole(ADMIN, msg.sender), 'This function onlu can call the ADMIN rol');
     _grantRole(role, account);
