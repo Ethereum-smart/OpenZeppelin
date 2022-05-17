@@ -14,17 +14,23 @@ contract AccessByRol is AccessControl {
   }
 
   function onlyAdmin() view public {
-    require(hasRole(ADMIN, msg.sender), 'This function onlu can call the ADMIN rol');
+    require(hasRole(ADMIN, msg.sender), 'This function only can call the ADMIN rol');
   }
 
   function onlyUser() view public {
-    require(hasRole(USER, msg.sender), 'This function onlu can call the USER rol');
+    require(hasRole(USER, msg.sender), 'This function only can call the USER rol');
   }
 
   // Only the ADMIN can add a new rol
   function addRol( bytes32 role, address account ) public {
-    require(hasRole(ADMIN, msg.sender), 'This function onlu can call the ADMIN rol');
+    require(hasRole(ADMIN, msg.sender), 'This function only can call the ADMIN rol');
     _grantRole(role, account);
+  }
+
+  // Revoke rol
+  function revokeRol( bytes32 role, address account ) public {
+    require(hasRole(ADMIN, msg.sender), "You don't has access for this transaction");
+    _revokeRole( role, account );
   }
 
 }
