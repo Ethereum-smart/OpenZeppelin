@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract TokenReto is Ownable, ERC20, ERC20Burnable, Pausable {
 
-  constructor() ERC20("Center Planet Core", "CPC") {
+  constructor() ERC20Burnable() ERC20("Center Planet Core", "CPC") {
     _mint(msg.sender, 10);
   }
 
@@ -18,7 +18,8 @@ contract TokenReto is Ownable, ERC20, ERC20Burnable, Pausable {
   }
 
   function burnableToken ( uint32 amount ) public onlyOwner {
-      _burn(msg.sender, amount);
+    require(paused() == false, "Cannot burn any token");
+    burn(amount);
   }
 
   function pausableMining () public onlyOwner{
